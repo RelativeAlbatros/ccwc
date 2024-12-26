@@ -1,4 +1,4 @@
-VERSION:="0.1"
+VERSION:="0.2"
 
 debug:
 	gcc main.c util.c -g -o ccwc_$(VERSION)
