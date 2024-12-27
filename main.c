@@ -12,6 +12,7 @@
 "\t-m:\treturns number of characters\n" \
 "\t-v --version:\toutput version information\n" \
 "\t-h --help:\tdisplay this help\n"
+#define IN_BUFFER_SIZE 4096
 
 static short unsigned int flags = 0;
 
@@ -46,10 +47,10 @@ int main(int argc, char **argv) {
     // read from stdin
     if ((flags != 0 && argc == 2) ||
             (argc == 1)) {
-        char* input = malloc(4096 * sizeof(char));
+        char* input = malloc(IN_BUFFER_SIZE * sizeof(char));
         int bytes, lines, words, mbchars = 0;
 
-        while (read(STDIN_FILENO, input, 4096) > 0) {
+        while (fgets(input, IN_BUFFER_SIZE, stdin) != NULL) {
             if (flags & 1) { // -c flag
                 bytes += cbytes(input, 1);
             } else if (flags & (1<<1)) { // -l flag
